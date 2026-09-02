@@ -1,0 +1,91 @@
+site_name: LangGraph Türkçe Rehber
+site_description: Sıfırdan senior seviyeye LangGraph — Türkçe kapsamlı kaynak
+site_url: https://emineksknc.github.io/langgraph-turkce/
+repo_url: https://github.com/emineksknc/langgraph-turkce
+repo_name: langgraph-turkce
+edit_uri: edit/main/docs/
+
+theme:
+  name: material
+  language: tr
+  palette:
+    - scheme: slate
+      primary: deep purple
+      accent: purple
+      toggle:
+        icon: material/weather-sunny
+        name: Aydınlık mod
+    - scheme: default
+      primary: deep purple
+      accent: purple
+      toggle:
+        icon: material/weather-night
+        name: Karanlık mod
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.top
+    - navigation.footer
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.action.edit
+    - toc.follow
+  icon:
+    repo: fontawesome/brands/github
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - attr_list
+  - md_in_html
+  - toc:
+      permalink: true
+      toc_depth: 3
+
+plugins:
+  - search:
+      lang: tr
+
+extra_css:
+  - assets/extra.css
+
+nav:
+  - Ana Sayfa: index.md
+  - Başlangıç:
+      - Kurulum: baslangic/kurulum.md
+      - Temel Kavramlar (State, Node, Edge): baslangic/temel-kavramlar.md
+      - İlk Grafını Kur: baslangic/ilk-graf.md
+      - Koşullu Kenarlar: baslangic/kosullu-kenarlar.md
+  - Orta Seviye:
+      - ToolNode & Hazır Ajanlar: orta-seviye/tool-node.md
+      - Checkpointer & Kalıcılık: orta-seviye/checkpointer.md
+      - Streaming: orta-seviye/streaming.md
+      - Human-in-the-loop: orta-seviye/human-in-the-loop.md
+      - Subgraph & Store: orta-seviye/subgraph-store.md
+  - İleri / Senior:
+      - Command & Send API: ileri-seviye/send-command.md
+      - Multi-Agent Mimarileri: ileri-seviye/multi-agent.md
+      - Time Travel & Debugging: ileri-seviye/time-travel.md
+      - Production & Deployment: ileri-seviye/production.md
+  - Referans:
+      - Hızlı Referans Tablosu: referans/hizli-referans.md
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/emineksknc
+    - icon: fontawesome/brands/linkedin
+      link: https://linkedin.com/in/eminekiskanc
+  generator: false
+
+copyright: >
+  Bu site bağımsız bir öğretim kaynağıdır, LangChain Inc. ile ilişkili değildir.
+  LangGraph MIT lisanslıdır.
