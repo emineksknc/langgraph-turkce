@@ -4,7 +4,7 @@
 
 Aşağıdaki sorular [Kavramlar](../baslangic/temel-kavramlar.md) ve [Koşullu Kenarlar](../baslangic/kosullu-kenarlar.md) sayfalarındaki konuları pekiştirmek içindir. Önce kendi cevabını düşün, sonra kutuya tıklayıp kontrol et.
 
-??? question "1. LCEL zinciri (`prompt | llm | parser`) ile LangGraph'ı ne zaman tercih edersin?"
+??? question "1. LangChain Expression Language (LCEL) zinciri (`prompt | llm | parser`) ile LangGraph'ı ne zaman tercih edersin?"
     LCEL zincirleri **doğrusaldır** — A'dan B'ye, B'den C'ye gider. Döngü (bir aracı tekrar tekrar çağırmak), koşullu dallanma (duruma göre farklı yola sapmak) ya da kalıcı state (kesintiden devam edebilme) gerekiyorsa LangGraph kullanılır. Basit, tek yönlü bir "girdi → çıktı" akışı için LCEL yeterlidir.
 
 ??? question "2. State neden düz bir sözlük (dict) yerine `TypedDict` ile tanımlanır?"
