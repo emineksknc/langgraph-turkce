@@ -63,7 +63,7 @@ Her seviye için, çevrimdışı da kullanabileceğin 2 sayfalık özet referans
 
 ## Katkıda bulunmak ister misin?
 
-Bu site açık kaynak. Bir hata bulursan, eksik bir konu görürsen ya da kendi deneyimini eklemek istersen [GitHub reposundan](https://github.com/KULLANICI_ADIN/langgraph-turkce) pull request açabilirsin.
+Bu site açık kaynak. Bir hata bulursan, eksik bir konu görürsen ya da kendi deneyimini eklemek istersen [GitHub reposundan](https://github.com/emineksknc/langgraph-turkce) pull request açabilirsin.
 
 ---
 
