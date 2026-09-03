@@ -29,6 +29,17 @@ Elle deploy etmek istersen:
 mkdocs gh-deploy --force
 ```
 
-## Lisans / Kaynak
+## Kaynak ve Lisans
 
-Bu, LangGraph (MIT lisanslı, langchain-ai) hakkında bağımsız bir öğretim kaynağıdır. LangChain Inc. ile bağlantılı değildir.
+Bu proje, LangGraph ekosistemini Türkçe öğrenmek isteyenler için hazırlanmış
+bağımsız bir topluluk/eğitim kaynağıdır. Kavramlar kendi cümlelerimle
+anlatılmış, kod örnekleri kendim tarafından yazılmıştır.
+
+LangGraph, LangChain Inc. tarafından geliştirilen [MIT lisanslı](https://github.com/langchain-ai/langgraph/blob/main/LICENSE)
+açık kaynak bir projedir.
+
+- LangGraph: https://github.com/langchain-ai/langgraph
+- Resmi dokümantasyon: https://docs.langchain.com/oss/python/langgraph/
+
+Bu proje LangChain Inc. tarafından resmi olarak yayımlanmış veya
+onaylanmış bir kaynak değildir.

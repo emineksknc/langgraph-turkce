@@ -1,5 +1,7 @@
 # Kurulum
 
+<span class="badge badge-baslangic">🟢 BAŞLANGIÇ</span>
+
 ## Gereksinimler
 
 - Python 3.9 veya üstü (3.11+ önerilir)

@@ -1,5 +1,7 @@
 # Streaming
 
+<span class="badge badge-orta">🟡 ORTA SEVİYE</span>
+
 LangGraph üç farklı streaming modu sunar; her biri farklı bir kullanım senaryosuna hizmet eder.
 
 ## stream_mode karşılaştırması

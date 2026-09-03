@@ -1,5 +1,7 @@
 # Multi-Agent Mimarileri
 
+<span class="badge badge-ileri">🔴 İLERİ / SENIOR</span>
+
 Tek bir ajanın tüm araçlara/bağlama sahip olması hem prompt'u şişirir hem de modelin doğru karar verme olasılığını düşürür. Çözüm: görevi uzmanlaşmış ajanlara bölmek.
 
 ## Supervisor (yönetici) deseni

@@ -1,5 +1,7 @@
 # Temel Kavramlar — State, Node, Edge
 
+<span class="badge badge-baslangic">🟢 BAŞLANGIÇ</span>
+
 ## Neden LangGraph?
 
 LangChain'deki LCEL zincirleri (`prompt | llm | parser`) **doğrusaldır**: A adımından B'ye, B'den C'ye gider. Ama gerçek ajan sistemlerinde ihtiyacınız olan şey genellikle şudur:

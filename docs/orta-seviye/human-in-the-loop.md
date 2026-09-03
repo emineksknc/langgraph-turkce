@@ -1,5 +1,7 @@
 # Human-in-the-loop
 
+<span class="badge badge-orta">🟡 ORTA SEVİYE</span>
+
 Bazı adımlar (ör. ödeme yapma, e-posta gönderme, veri silme) otomatik değil, **insan onayıyla** ilerlemelidir. LangGraph, checkpointer sayesinde grafı belirli bir node'dan önce/sonra durdurabilir.
 
 ## interrupt_before / interrupt_after

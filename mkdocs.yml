@@ -1,7 +1,7 @@
 site_name: LangGraph Türkçe Rehber
 site_description: Sıfırdan senior seviyeye LangGraph — Türkçe kapsamlı kaynak
-site_url: https://emineksknc.github.io/langgraph-turkce/
-repo_url: https://github.com/emineksknc/langgraph-turkce
+site_url: https://KULLANICI_ADIN.github.io/langgraph-turkce/
+repo_url: https://github.com/KULLANICI_ADIN/langgraph-turkce
 repo_name: langgraph-turkce
 edit_uri: edit/main/docs/
 
@@ -59,33 +59,40 @@ extra_css:
 
 nav:
   - Ana Sayfa: index.md
-  - Başlangıç:
+  - Başlarken:
       - Kurulum: baslangic/kurulum.md
-      - Temel Kavramlar (State, Node, Edge): baslangic/temel-kavramlar.md
       - İlk Grafını Kur: baslangic/ilk-graf.md
+  - Kavramlar:
+      - State, Node, Edge: baslangic/temel-kavramlar.md
       - Koşullu Kenarlar: baslangic/kosullu-kenarlar.md
-  - Orta Seviye:
+  - Çalışma Zamanı:
       - ToolNode & Hazır Ajanlar: orta-seviye/tool-node.md
       - Checkpointer & Kalıcılık: orta-seviye/checkpointer.md
       - Streaming: orta-seviye/streaming.md
       - Human-in-the-loop: orta-seviye/human-in-the-loop.md
       - Subgraph & Store: orta-seviye/subgraph-store.md
-  - İleri / Senior:
+  - Mimari Desenler:
       - Command & Send API: ileri-seviye/send-command.md
       - Multi-Agent Mimarileri: ileri-seviye/multi-agent.md
       - Time Travel & Debugging: ileri-seviye/time-travel.md
+  - Production:
       - Production & Deployment: ileri-seviye/production.md
+  - Alıştırmalar:
+      - Başlangıç Soruları: alistirmalar/baslangic-sorulari.md
+      - Orta Seviye Soruları: alistirmalar/orta-seviye-sorulari.md
+      - İleri Seviye Soruları: alistirmalar/ileri-seviye-sorulari.md
   - Referans:
       - Hızlı Referans Tablosu: referans/hizli-referans.md
 
 extra:
   social:
     - icon: fontawesome/brands/github
-      link: https://github.com/emineksknc
+      link: https://github.com/KULLANICI_ADIN
     - icon: fontawesome/brands/linkedin
       link: https://linkedin.com/in/eminekiskanc
   generator: false
 
 copyright: >
-  Bu site bağımsız bir öğretim kaynağıdır, LangChain Inc. ile ilişkili değildir.
-  LangGraph MIT lisanslıdır.
+  Bu site bağımsız, resmi olmayan bir öğretim kaynağıdır — LangChain Inc.
+  tarafından yayımlanmamış veya onaylanmamıştır. LangGraph, LangChain Inc.
+  tarafından geliştirilen MIT lisanslı bir kütüphanedir.

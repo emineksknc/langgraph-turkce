@@ -1,5 +1,7 @@
 # Subgraph & Store
 
+<span class="badge badge-orta">🟡 ORTA SEVİYE</span>
+
 ## Subgraph — modüler graf tasarımı
 
 Büyüyen bir graf yönetilemez hale gelmeden önce, mantıksal parçaları ayrı graflara bölüp ana grafa **node olarak** gömebilirsiniz.
@@ -55,3 +57,5 @@ def node_fn(state: State, *, store):
 ---
 
 Orta seviye burada tamamlanıyor. Sıradaki bölüm: [İleri / Senior — Command & Send API](../ileri-seviye/send-command.md).
+
+📄 Bu seviyenin özetini PDF olarak indir: [Orta Seviye Cheatsheet](../assets/cheatsheets/langgraph-orta-seviye-cheatsheet.pdf)

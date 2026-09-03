@@ -1,5 +1,7 @@
 # Checkpointer & Kalıcılık
 
+<span class="badge badge-orta">🟡 ORTA SEVİYE</span>
+
 Checkpointer, grafın her adımdan sonraki state'ini kaydeder. Bu sayede:
 
 - Kesintiden sonra kaldığı yerden devam edebilirsiniz

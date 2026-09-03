@@ -1,5 +1,7 @@
 # Command & Send API
 
+<span class="badge badge-ileri">🔴 İLERİ / SENIOR</span>
+
 ## Command — yönlendirme + state güncelleme tek objede
 
 Normalde bir node'un çıktısı sadece state günceller; sıradaki node'u `add_conditional_edges` belirler. `Command` ile bir node, **hem state'i güncelleyip hem de sıradaki node'u** tek seferde belirleyebilir — ayrı bir routing fonksiyonu yazmanıza gerek kalmaz.

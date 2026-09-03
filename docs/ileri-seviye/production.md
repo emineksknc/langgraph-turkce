@@ -1,5 +1,7 @@
 # Production & Deployment
 
+<span class="badge badge-ileri">🔴 İLERİ / SENIOR</span>
+
 ## Hata yönetimi ve retry
 
 Harici API çağıran node'larda geçici hataları (rate limit, network) tolere etmek için node bazlı retry politikası tanımlayın:
@@ -77,3 +79,5 @@ def sohbet(istek: Istek):
 ---
 
 Bu, ileri seviye bölümünün son sayfasıdır. Tüm anahtar kavramların özeti için: [Hızlı Referans Tablosu](../referans/hizli-referans.md).
+
+📄 Bu seviyenin özetini PDF olarak indir: [İleri Seviye Cheatsheet](../assets/cheatsheets/langgraph-ileri-seviye-cheatsheet.pdf)

@@ -1,5 +1,7 @@
 # ToolNode & Hazır Ajanlar
 
+<span class="badge badge-orta">🟡 ORTA SEVİYE</span>
+
 Araç çağırma döngüsünü (chatbot → araç → chatbot) elle kurmak yerine LangGraph'ın hazır bileşenlerini kullanabilirsiniz.
 
 ## ToolNode + tools_condition

@@ -1,5 +1,7 @@
 # İlk Grafını Kur — Basit Bir Chatbot
 
+<span class="badge badge-baslangic">🟢 BAŞLANGIÇ</span>
+
 Bu sayfada, mesaj geçmişini hatırlayan basit bir chatbot grafı kuracağız.
 
 ## 1. State tanımı

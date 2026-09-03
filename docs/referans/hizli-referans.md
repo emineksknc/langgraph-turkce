@@ -1,5 +1,8 @@
 # Hızlı Referans Tablosu
 
+!!! tip "PDF olarak indir"
+    Bu tablonun ve ilgili konuların 2 sayfalık özet kartları: [🟢 Başlangıç](../assets/cheatsheets/langgraph-baslangic-cheatsheet.pdf) · [🟡 Orta Seviye](../assets/cheatsheets/langgraph-orta-seviye-cheatsheet.pdf) · [🔴 İleri Seviye](../assets/cheatsheets/langgraph-ileri-seviye-cheatsheet.pdf)
+
 | Kavram | Ne işe yarar | Import |
 |---|---|---|
 | `StateGraph` | Graf tanımı | `langgraph.graph` |

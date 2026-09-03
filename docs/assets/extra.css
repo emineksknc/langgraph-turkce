@@ -9,3 +9,17 @@
   border-radius: 8px;
   padding: 1rem 1.25rem;
 }
+
+.badge {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: .02em;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 999px;
+  margin-bottom: 1rem;
+}
+.badge-baslangic { background: rgba(95,211,160,.15); color: #2f9e6f; border: 1px solid #5fd3a0; }
+.badge-orta      { background: rgba(253,186,71,.15); color: #b3791a; border: 1px solid #fdba47; }
+.badge-ileri     { background: rgba(255,110,110,.15); color: #d64545; border: 1px solid #ff6e6e; }

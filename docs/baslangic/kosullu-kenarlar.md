@@ -1,5 +1,7 @@
 # Koşullu Kenarlar
 
+<span class="badge badge-baslangic">🟢 BAŞLANGIÇ</span>
+
 Bir node'dan sonra hangi node'a gidileceği, sabit değil, **state'e bakılarak** karar veriliyorsa koşullu kenar kullanılır.
 
 ## Temel örnek
@@ -45,3 +47,5 @@ Bu döngü potansiyel olarak sonsuz sürebileceği için `recursion_limit` ile �
 ---
 
 Başlangıç bölümü burada tamamlanıyor. Sıradaki adım: [ToolNode & Hazır Ajanlar](../orta-seviye/tool-node.md).
+
+📄 Bu seviyenin özetini PDF olarak indir: [Başlangıç Cheatsheet](../assets/cheatsheets/langgraph-baslangic-cheatsheet.pdf)
