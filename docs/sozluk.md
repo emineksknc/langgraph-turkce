@@ -155,4 +155,4 @@ Bu sayfada rehber boyunca geçen terimler, orijinal İngilizce karşılıklarıy
 
 ---
 
-Bir terimi bulamadıysan veya eksik/yanlış bir tanım gördüysen, [GitHub reposundan](https://github.com/KULLANICI_ADIN/langgraph-turkce) bir issue/PR açabilirsin.
+Bir terimi bulamadıysan veya eksik/yanlış bir tanım gördüysen, [GitHub reposundan](https://github.com/emineksknc/langgraph-turkce) bir issue/PR açabilirsin.

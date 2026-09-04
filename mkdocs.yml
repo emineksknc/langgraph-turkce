@@ -1,7 +1,7 @@
 site_name: LangGraph Türkçe Rehber
 site_description: Sıfırdan senior seviyeye LangGraph — Türkçe kapsamlı kaynak
-site_url: https://KULLANICI_ADIN.github.io/langgraph-turkce/
-repo_url: https://github.com/KULLANICI_ADIN/langgraph-turkce
+site_url: https://emineksknc.github.io/langgraph-turkce/
+repo_url: https://github.com/emineksknc/langgraph-turkce
 repo_name: langgraph-turkce
 edit_uri: edit/main/docs/
 
@@ -106,7 +106,7 @@ nav:
 extra:
   social:
     - icon: fontawesome/brands/github
-      link: https://github.com/KULLANICI_ADIN
+      link: https://github.com/emineksknc
     - icon: fontawesome/brands/linkedin
       link: https://linkedin.com/in/eminekiskanc
   generator: false
