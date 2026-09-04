@@ -2,7 +2,7 @@
 
 <span class="badge badge-orta">🟡 ORTA SEVİYE</span>
 
-Araç çağırma döngüsünü (chatbot → araç → chatbot) elle kurmak yerine LangGraph'ın hazır bileşenlerini kullanabilirsiniz.
+**Tool** (araç), modelin çağırabileceği, dış dünyayla etkileşim kuran bir fonksiyondur (ör. hava durumu sorgulama, veritabanı okuma). Araç çağırma döngüsünü (chatbot → araç → chatbot) elle kurmak yerine LangGraph'ın hazır bileşenlerini kullanabilirsiniz.
 
 ## ToolNode + tools_condition
 
@@ -29,9 +29,21 @@ graph.add_edge("tools", "chatbot")
 
 `tools_condition`, son mesajda `tool_calls` varsa `"tools"` node'una, yoksa `END`'e yönlendiren hazır bir karar fonksiyonudur — bir önceki sayfada elle yazdığımız `yon_bul` fonksiyonunun hazır hâli.
 
+### Görsel: araç çağırma döngüsü
+
+```mermaid
+flowchart LR
+    START((START)) --> chatbot[chatbot]
+    chatbot -- tool_calls var --> tools[tools]
+    chatbot -- tool_calls yok --> END((END))
+    tools --> chatbot
+```
+
+`chatbot` ile `tools` arasındaki döngü, model gerektiği kadar araç çağırana kadar devam eder.
+
 ## create_react_agent — tek satırda ajan
 
-Küçük/orta ölçekli görevler için grafı elle kurmanıza gerek yok:
+**ReAct** (*Reason + Act* — "akıl yürüt ve eyle"), "düşün → araç çağır → sonucu değerlendir → gerekirse tekrar düşün" döngüsüne dayanan klasik ajan desenidir. Küçük/orta ölçekli görevler için grafı elle kurmanıza gerek yok — `create_react_agent` bu deseni hazır sağlar:
 
 ```python
 from langgraph.prebuilt import create_react_agent
@@ -54,4 +66,4 @@ Model, kullanıcının isteğine göre hangi aracı (ya da hiçbirini) çağıra
 
 ---
 
-Sıradaki adım: uzun süren ya da kesintiye uğrayan işlemler için [Checkpointer & Kalıcılık](checkpointer.md).
+Sıradaki adım: LangGraph'ın ikinci yazım şekli — [Functional API](functional-api.md); atlamak istersen doğrudan [Checkpointer & Kalıcılık](checkpointer.md)'a geçebilirsin.

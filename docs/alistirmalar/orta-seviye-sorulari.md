@@ -2,7 +2,7 @@
 
 <span class="badge badge-orta">🟡 ORTA SEVİYE</span>
 
-Bu sorular [Çalışma Zamanı](../orta-seviye/tool-node.md) bölümündeki konuları (ToolNode, checkpointer, streaming, human-in-the-loop, subgraph/store) test eder.
+Bu sorular [Çalışma Zamanı](../orta-seviye/tool-node.md) bölümündeki konuları (ToolNode, Functional API, checkpointer, streaming, human-in-the-loop, subgraph/store, config injection) test eder.
 
 ??? question "1. `tools_condition` fonksiyonu tam olarak neye karar verir?"
     Son mesajda (`AIMessage`) `tool_calls` alanı doluysa `"tools"` node'una, boşsa `END`'e yönlendirir. Aslında bir önceki seviyede elle yazdığımız `yon_bul` fonksiyonunun LangGraph tarafından sağlanan hazır hâlidir — standart araç-çağırma döngüsü için tekrar tekrar aynı kodu yazmamak amacıyla kullanılır.
@@ -35,6 +35,15 @@ Bu sorular [Çalışma Zamanı](../orta-seviye/tool-node.md) bölümündeki konu
 
 ??? question "10. Bir node fonksiyonunun içinden Store'a nasıl erişilir?"
     Node fonksiyonuna `store` parametresi eklenir (`def node_fn(state, *, store): ...`) ve graf `compile(checkpointer=..., store=store)` ile derlenirken store verilir. LangGraph, node çağrılırken store'u otomatik olarak enjekte eder.
+
+??? question "11. Functional API'deki `@task` ile Graph API'deki node arasındaki ilişki nedir?"
+    `@task`, Graph API'deki bir **node**'a karşılık gelir — tek bir işlem birimini işaretler ve checkpoint'lenebilir/retry edilebilir. Fark, `@task`'ı normal bir Python fonksiyonu gibi çağırmanızdır (`sonuc = gorev(x).result()`); ayrı bir `add_node`/`add_edge` tanımına gerek yoktur. Detaylar: [Functional API](../orta-seviye/functional-api.md).
+
+??? question "12. Doğrusal, az dallanmalı bir akış kuruyorsun. Graph API mi Functional API mi daha uygun, neden?"
+    Functional API daha uygun olur — çünkü akış çoğunlukla doğrusal olduğunda, `StateGraph` + `add_node`/`add_edge` tanımlamak gereğinden fazla tören (boilerplate) gibi hissettirir. `@entrypoint`/`@task` ile aynı akışı normal Python fonksiyonu yazar gibi kurabilirsiniz. Karmaşık dallanma/çoklu-ajan sistemlerinde ise Graph API'nin görsel netliği (grafı `draw_mermaid()` ile görebilme) daha değerlidir.
+
+??? question "13. Config injection ile Store'u birlikte kullanmanın tipik senaryosu nedir?"
+    Çok kullanıcılı bir sistemde, `config["configurable"]["kullanici_id"]`'den okunan kullanıcı kimliğiyle Store'a erişip o kullanıcıya özel tercihleri/geçmişi getirmek. Bu, "kısa süreli hafıza" (o anki konuşma, state/checkpointer'da) ile "uzun süreli hafıza"yı (kullanıcı geneli, Store'da) aynı node içinde birleştirmenin standart yoludur.
 
 ---
 

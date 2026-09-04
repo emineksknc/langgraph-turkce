@@ -2,9 +2,9 @@
 
 <span class="badge badge-baslangic">🟢 BAŞLANGIÇ</span>
 
-Aşağıdaki sorular [Kavramlar](../baslangic/temel-kavramlar.md) ve [Koşullu Kenarlar](../baslangic/kosullu-kenarlar.md) sayfalarındaki konuları pekiştirmek içindir. Önce kendi cevabını düşün, sonra kutuya tıklayıp kontrol et.
+Aşağıdaki sorular [Kavramlar](../baslangic/temel-kavramlar.md), [Workflows vs Agents](../baslangic/workflows-vs-agents.md) ve [Koşullu Kenarlar](../baslangic/kosullu-kenarlar.md) sayfalarındaki konuları pekiştirmek içindir. Önce kendi cevabını düşün, sonra kutuya tıklayıp kontrol et.
 
-??? question "1. LangChain Expression Language (LCEL) zinciri (`prompt | llm | parser`) ile LangGraph'ı ne zaman tercih edersin?"
+??? question "1. LCEL zinciri (`prompt | llm | parser`) ile LangGraph'ı ne zaman tercih edersin?"
     LCEL zincirleri **doğrusaldır** — A'dan B'ye, B'den C'ye gider. Döngü (bir aracı tekrar tekrar çağırmak), koşullu dallanma (duruma göre farklı yola sapmak) ya da kalıcı state (kesintiden devam edebilme) gerekiyorsa LangGraph kullanılır. Basit, tek yönlü bir "girdi → çıktı" akışı için LCEL yeterlidir.
 
 ??? question "2. State neden düz bir sözlük (dict) yerine `TypedDict` ile tanımlanır?"
@@ -33,6 +33,12 @@ Aşağıdaki sorular [Kavramlar](../baslangic/temel-kavramlar.md) ve [Koşullu K
 
 ??? question "10. Aynı `thread_id` ile yapılan iki ayrı `invoke()` çağrısı arasında ne olur? (Checkpointer varsa)"
     Checkpointer tanımlıysa, ikinci çağrı ilk çağrının bıraktığı state'in üzerinden devam eder — yani model önceki mesajları "hatırlar". Checkpointer yoksa her `invoke()` çağrısı sıfırdan başlar, önceki konuşmadan hiçbir iz kalmaz. Detaylar için: [Checkpointer & Kalıcılık](../orta-seviye/checkpointer.md).
+
+??? question "11. Bir sistemin \"workflow\" mu yoksa \"agent\" mi olduğuna nasıl karar verirsin?"
+    Hangi adımların, kaç kez ve hangi sırayla çalışacağına **kod mu** yoksa **LLM mi** karar veriyor sorusuna bakılır. Kod önceden belirliyorsa (adımlar sabit) bu bir **workflow**'dur; LLM çalışma zamanında karar veriyorsa (kaç araç çağrılacağı, hangi sırayla belirsiz) bu bir **agent**'tır. Detaylar için: [Workflows vs Agents](../baslangic/workflows-vs-agents.md).
+
+??? question "12. Çoğu production sisteminin \"saf workflow\" ya da \"saf agent\" olmama sebebi nedir?"
+    Gerçek görevlerin bir kısmı öngörülebilir/tekrarlanabilir (workflow'a uygun), bir kısmı ise karar/keşif gerektirir (agent'a uygun). LangGraph'ın gücü, aynı grafta bazı node'ları sabit sırayla (workflow), bazılarını LLM kararıyla (agent) çalıştırıp bu ikisini serbestçe karıştırabilmenizdir — [Örnek Proje](../ornek-proje/musteri-destek-botu.md)'deki `router` (agent-benzeri) ve `iade_isle` (workflow-benzeri) node'ları buna örnektir.
 
 ---
 

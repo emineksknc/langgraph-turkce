@@ -2,9 +2,19 @@
 
 <span class="badge badge-ileri">🔴 İLERİ / SENIOR</span>
 
+## Durable execution (dayanıklı çalıştırma) — genel çerçeve
+
+Production'da hata yönetimi, checkpointer ve retry ayrı ayrı konular gibi görünebilir ama aslında hepsi tek bir kavramın parçasıdır: **durable execution** (dayanıklı çalıştırma) — yani bir çalıştırmanın, çökme/yeniden başlatma/geçici hata gibi kesintilere rağmen kaldığı yerden devam edebilmesi. LangGraph'ta bu üç bileşenle sağlanır:
+
+1. **[Checkpointer](../orta-seviye/checkpointer.md)** — her adımdan sonra state'i kalıcı olarak kaydeder
+2. **Retry policy** (aşağıda) — geçici hatalarda otomatik yeniden dener
+3. **[Human-in-the-loop](../orta-seviye/human-in-the-loop.md)** — beklenen "duraklamaları" (insan onayı) yönetir
+
+Bu üçü birlikte düşünüldüğünde, "production'a hazır mıyım?" sorusu aslında "çalıştırmam gerçekten dayanıklı mı?" sorusuna dönüşür.
+
 ## Hata yönetimi ve retry
 
-Harici API çağıran node'larda geçici hataları (rate limit, network) tolere etmek için node bazlı retry politikası tanımlayın:
+Harici API çağıran node'larda geçici hataları (rate limit, network) tolere etmek için node bazlı **retry policy** (yeniden deneme politikası) tanımlayın:
 
 ```python
 from langgraph.pregel import RetryPolicy
@@ -16,7 +26,7 @@ graph.add_node(
 )
 ```
 
-## Recursion limit
+## Recursion limit (döngü üst sınırı)
 
 Döngüsel graflarda sonsuz döngüyü önlemek için üst sınır koyun — özellikle multi-agent sistemlerde kritik:
 
@@ -78,6 +88,6 @@ def sohbet(istek: Istek):
 
 ---
 
-Bu, ileri seviye bölümünün son sayfasıdır. Tüm anahtar kavramların özeti için: [Hızlı Referans Tablosu](../referans/hizli-referans.md).
+Bu, ileri seviye bölümünün son sayfasıdır. LangGraph Platform ile deploy etmek istersen: [langgraph.json & CLI](deployment-cli.md).
 
 📄 Bu seviyenin özetini PDF olarak indir: [İleri Seviye Cheatsheet](../assets/cheatsheets/langgraph-ileri-seviye-cheatsheet.pdf)

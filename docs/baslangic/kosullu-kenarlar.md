@@ -2,7 +2,7 @@
 
 <span class="badge badge-baslangic">🟢 BAŞLANGIÇ</span>
 
-Bir node'dan sonra hangi node'a gidileceği, sabit değil, **state'e bakılarak** karar veriliyorsa koşullu kenar kullanılır.
+Bir node'dan sonra hangi node'a gidileceği, sabit değil, **state'e bakılarak** karar veriliyorsa **koşullu kenar** (*conditional edge* — bazı kaynaklarda "dallanma"/*branching* olarak da geçer) kullanılır.
 
 ## Temel örnek
 
@@ -42,7 +42,7 @@ Koşullu kenarı, bir node'a geri dönecek şekilde de kurabilirsiniz — bu, "a
 graph.add_edge("tools", "chatbot")  # araçtan sonra tekrar chatbot'a dön
 ```
 
-Bu döngü potansiyel olarak sonsuz sürebileceği için `recursion_limit` ile üst sınır koymanız önerilir (bkz. [Production sayfası](../ileri-seviye/production.md)).
+Bu döngü potansiyel olarak sonsuz sürebileceği için `recursion_limit` (döngü üst sınırı) ile üst sınır koymanız önerilir (bkz. [Production sayfası](../ileri-seviye/production.md)).
 
 ---
 

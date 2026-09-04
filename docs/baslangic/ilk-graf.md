@@ -54,8 +54,17 @@ from IPython.display import Image
 Image(app.get_graph().draw_mermaid_png())
 ```
 
-Jupyter dışında çalışıyorsanız, `app.get_graph().draw_mermaid()` ile Mermaid metnini alıp [mermaid.live](https://mermaid.live) üzerinde görebilirsiniz.
+Jupyter dışında çalışıyorsanız, `app.get_graph().draw_mermaid()` ile Mermaid metnini alıp [mermaid.live](https://mermaid.live) üzerinde görebilirsiniz. `draw_mermaid()` çıktısı, bu sitede gördüğünüz diyagramlarla aynı formattadır, örneğin bu grafın çıktısı şuna benzer:
+
+```mermaid
+flowchart LR
+    START((START)) --> chatbot[chatbot]
+    chatbot --> END((END))
+```
+
+!!! tip "LangGraph Studio ile canlı görselleştirme"
+    `langgraph dev` komutuyla çalıştırdığınızda statik bir görselden çok daha fazlasını elde edersiniz — grafı tıklayarak adım adım çalıştırabileceğiniz görsel bir hata ayıklama arayüzü. Detaylar: [langgraph.json & CLI](../ileri-seviye/deployment-cli.md).
 
 ---
 
-Sıradaki adım: gerçek ajanlarda vazgeçilmez olan [Koşullu Kenarlar](kosullu-kenarlar.md).
+Sıradaki adım: [Workflows vs Agents](workflows-vs-agents.md) — grafını kurmadan önce hangi tür sistem inşa ettiğini netleştir.

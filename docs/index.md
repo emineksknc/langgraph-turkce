@@ -5,6 +5,9 @@ Bu site, [LangGraph](https://github.com/langchain-ai/langgraph) kütüphanesini 
 !!! info "Neden bu site?"
     LangGraph'ın resmi dokümantasyonu İngilizce ve düzenli olarak değişiyor. Bu site; kavramları Türkçe, örneklerle ve kademeli bir öğrenme sırasıyla (başlangıç → orta → ileri) anlatmayı hedefliyor. Bağımsız bir öğretim kaynağıdır, LangChain Inc. ile bağlantılı değildir.
 
+!!! abstract "Yeni bir terimle mi karşılaştın?"
+    Her terim ilk geçtiği sayfada kısaca (ve orijinal İngilizce karşılığıyla) açıklanıyor. Hepsinin toplu, aranabilir listesi için: [Sözlük](sozluk.md).
+
 ## Nereden başlamalıyım?
 
 <div class="grid cards" markdown>
@@ -18,6 +21,9 @@ Bu site, [LangGraph](https://github.com/langchain-ai/langgraph) kütüphanesini 
 - :material-account-hard-hat: **Production'a mı hazırlanıyorsun?**
   [Checkpointer & Kalıcılık](orta-seviye/checkpointer.md) ve [Production & Deployment](ileri-seviye/production.md) sayfalarını incele.
 
+- :material-rocket-launch: **Kod üzerinden mi öğrenmeyi tercih ediyorsun?**
+  Doğrudan [uçtan uca örnek projeye](ornek-proje/musteri-destek-botu.md) atla — tüm kavramları tek bir gerçekçi projede görürsün.
+
 </div>
 
 ## Sıfırdan senior'a okuma sırası
@@ -27,16 +33,23 @@ Yan menü **konu bazlı** düzenlendi (referans olarak kullanması kolay olsun d
 1. 🟢 [Kurulum](baslangic/kurulum.md)
 2. 🟢 [State, Node, Edge](baslangic/temel-kavramlar.md)
 3. 🟢 [İlk Grafını Kur](baslangic/ilk-graf.md)
-4. 🟢 [Koşullu Kenarlar](baslangic/kosullu-kenarlar.md)
-5. 🟡 [ToolNode & Hazır Ajanlar](orta-seviye/tool-node.md)
-6. 🟡 [Checkpointer & Kalıcılık](orta-seviye/checkpointer.md)
-7. 🟡 [Streaming](orta-seviye/streaming.md)
-8. 🟡 [Human-in-the-loop](orta-seviye/human-in-the-loop.md)
-9. 🟡 [Subgraph & Store](orta-seviye/subgraph-store.md)
-10. 🔴 [Command & Send API](ileri-seviye/send-command.md)
-11. 🔴 [Multi-Agent Mimarileri](ileri-seviye/multi-agent.md)
-12. 🔴 [Time Travel & Debugging](ileri-seviye/time-travel.md)
-13. 🔴 [Production & Deployment](ileri-seviye/production.md)
+4. 🟢 [Workflows vs Agents](baslangic/workflows-vs-agents.md)
+5. 🟢 [Koşullu Kenarlar](baslangic/kosullu-kenarlar.md)
+6. 🟡 [ToolNode & Hazır Ajanlar](orta-seviye/tool-node.md)
+7. 🟡 [Functional API](orta-seviye/functional-api.md)
+8. 🟡 [Checkpointer & Kalıcılık](orta-seviye/checkpointer.md)
+9. 🟡 [Streaming](orta-seviye/streaming.md)
+10. 🟡 [Human-in-the-loop](orta-seviye/human-in-the-loop.md)
+11. 🟡 [Subgraph & Store](orta-seviye/subgraph-store.md)
+12. 🟡 [Config & Context Injection](orta-seviye/context-config.md)
+13. 🟡 [Test Yazma](orta-seviye/testing.md)
+14. 🔴 [Command & Send API](ileri-seviye/send-command.md)
+15. 🔴 [Multi-Agent Mimarileri](ileri-seviye/multi-agent.md)
+16. 🔴 [Time Travel & Debugging](ileri-seviye/time-travel.md)
+17. 🔴 [Production & Deployment](ileri-seviye/production.md)
+18. 🔴 [langgraph.json & CLI](ileri-seviye/deployment-cli.md)
+19. 🔴 [Proje Yapısı](ileri-seviye/proje-yapisi.md)
+20. 🔴 [Örnek Proje — Müşteri Destek Botu](ornek-proje/musteri-destek-botu.md) — tüm konuları tek projede birleştirir
 
 !!! tip "Öğrendiklerini test et"
     Her seviye için açılır-kapanır soru-cevap setleri hazırlandı — kendi kendine test edebilirsin: [Başlangıç](alistirmalar/baslangic-sorulari.md) · [Orta Seviye](alistirmalar/orta-seviye-sorulari.md) · [İleri Seviye](alistirmalar/ileri-seviye-sorulari.md)
@@ -63,7 +76,7 @@ Her seviye için, çevrimdışı da kullanabileceğin 2 sayfalık özet referans
 
 ## Katkıda bulunmak ister misin?
 
-Bu site açık kaynak. Bir hata bulursan, eksik bir konu görürsen ya da kendi deneyimini eklemek istersen [GitHub reposundan](https://github.com/emineksknc/langgraph-turkce) pull request açabilirsin.
+Bu site açık kaynak. Bir hata bulursan, eksik bir konu görürsen ya da kendi deneyimini eklemek istersen [GitHub reposundan](https://github.com/KULLANICI_ADIN/langgraph-turkce) pull request açabilirsin.
 
 ---
 

@@ -2,7 +2,7 @@
 
 <span class="badge badge-ileri">🔴 İLERİ / SENIOR</span>
 
-Checkpointer sayesinde LangGraph, bir thread'in **tüm state geçmişini** saklar. Bu, hem hata ayıklama hem de "farklı bir karar verilseydi ne olurdu" analizleri için güçlü bir araçtır.
+Checkpointer sayesinde LangGraph, bir thread'in **tüm state geçmişini** saklar. Bu yeteneğe **time-travel** (zamanda geri gitme) denir ve hem hata ayıklama hem de "farklı bir karar verilseydi ne olurdu" analizleri için güçlü bir araçtır.
 
 ## State geçmişini listeleme
 

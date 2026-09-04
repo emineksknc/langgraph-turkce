@@ -1,7 +1,7 @@
 site_name: LangGraph Türkçe Rehber
 site_description: Sıfırdan senior seviyeye LangGraph — Türkçe kapsamlı kaynak
-site_url: https://emineksknc.github.io/langgraph-turkce/
-repo_url: https://github.com/emineksknc/langgraph-turkce
+site_url: https://KULLANICI_ADIN.github.io/langgraph-turkce/
+repo_url: https://github.com/KULLANICI_ADIN/langgraph-turkce
 repo_name: langgraph-turkce
 edit_uri: edit/main/docs/
 
@@ -37,10 +37,11 @@ theme:
 markdown_extensions:
   - admonition
   - pymdownx.details
-  - pymdownx.emoji:
-     emoji_index: !!python/name:materialx.emoji.twemoji
-     emoji_generator: !!python/name:materialx.emoji.to_svg
-  - pymdownx.superfences
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
   - pymdownx.tabbed:
       alternate_style: true
   - pymdownx.highlight:
@@ -62,35 +63,46 @@ extra_css:
 
 nav:
   - Ana Sayfa: index.md
+  - Sözlük: sozluk.md
+  - Kaynaklar: kaynaklar.md
   - Başlarken:
       - Kurulum: baslangic/kurulum.md
       - İlk Grafını Kur: baslangic/ilk-graf.md
   - Kavramlar:
       - State, Node, Edge: baslangic/temel-kavramlar.md
+      - Workflows vs Agents: baslangic/workflows-vs-agents.md
       - Koşullu Kenarlar: baslangic/kosullu-kenarlar.md
   - Çalışma Zamanı:
       - ToolNode & Hazır Ajanlar: orta-seviye/tool-node.md
+      - Functional API: orta-seviye/functional-api.md
       - Checkpointer & Kalıcılık: orta-seviye/checkpointer.md
       - Streaming: orta-seviye/streaming.md
       - Human-in-the-loop: orta-seviye/human-in-the-loop.md
       - Subgraph & Store: orta-seviye/subgraph-store.md
+      - Config & Context Injection: orta-seviye/context-config.md
+      - Test Yazma: orta-seviye/testing.md
   - Mimari Desenler:
       - Command & Send API: ileri-seviye/send-command.md
       - Multi-Agent Mimarileri: ileri-seviye/multi-agent.md
       - Time Travel & Debugging: ileri-seviye/time-travel.md
   - Production:
       - Production & Deployment: ileri-seviye/production.md
+      - langgraph.json & CLI: ileri-seviye/deployment-cli.md
+      - Proje Yapısı: ileri-seviye/proje-yapisi.md
+  - Örnek Proje:
+      - Müşteri Destek Botu (uçtan uca): ornek-proje/musteri-destek-botu.md
   - Alıştırmalar:
       - Başlangıç Soruları: alistirmalar/baslangic-sorulari.md
       - Orta Seviye Soruları: alistirmalar/orta-seviye-sorulari.md
       - İleri Seviye Soruları: alistirmalar/ileri-seviye-sorulari.md
   - Referans:
       - Hızlı Referans Tablosu: referans/hizli-referans.md
+      - Hata Referansı: referans/hata-referansi.md
 
 extra:
   social:
     - icon: fontawesome/brands/github
-      link: https://github.com/emineksknc
+      link: https://github.com/KULLANICI_ADIN
     - icon: fontawesome/brands/linkedin
       link: https://linkedin.com/in/eminekiskanc
   generator: false

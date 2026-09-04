@@ -6,7 +6,7 @@ Tek bir ajanın tüm araçlara/bağlama sahip olması hem prompt'u şişirir hem
 
 ## Supervisor (yönetici) deseni
 
-Merkezi bir "supervisor" node, görevi hangi uzman ajanın üstleneceğine karar verir. Denetlenebilirlik ve öngörülebilirlik önceliğiyse en yaygın tercihtir.
+Merkezi bir **supervisor** (yönetici/denetleyici) node, görevi hangi uzman ajanın üstleneceğine karar verir. Denetlenebilirlik ve öngörülebilirlik önceliğiyse en yaygın tercihtir.
 
 ```python
 def supervisor_node(state: State) -> Command[Literal["arastirmaci", "kodlayici", "__end__"]]:
@@ -25,6 +25,20 @@ graph.add_edge("kodlayici", "supervisor")
 graph.add_edge(START, "supervisor")
 ```
 
+### Görsel: supervisor deseni
+
+```mermaid
+flowchart TD
+    START((START)) --> supervisor{supervisor}
+    supervisor -- görev: araştırma --> arastirmaci[araştırmacı]
+    supervisor -- görev: kod --> kodlayici[kodlayıcı]
+    supervisor -- bitti --> END((END))
+    arastirmaci --> supervisor
+    kodlayici --> supervisor
+```
+
+Tüm kararlar `supervisor`'dan geçer — bu yüzden denetlenebilirliği yüksektir.
+
 Hazır bir kütüphane de mevcuttur:
 
 ```python
@@ -39,7 +53,55 @@ app = create_supervisor([arastirma_ajani, kod_ajani], model=llm).compile()
 
 ## Swarm deseni
 
-Merkezi bir yönetici yok — ajanlar birbirine doğrudan **devir (handoff)** yapar; her ajan "kime devredeyim" kararını kendisi verir (genelde bir "handoff" aracı çağırarak).
+**Swarm** (sürü) deseninde merkezi bir yönetici yok — ajanlar birbirine doğrudan **devir** (*handoff*) yapar; her ajan "kime devredeyim" kararını kendisi verir (genelde bir "handoff" aracı çağırarak).
+
+### Görsel: swarm deseni
+
+```mermaid
+flowchart LR
+    START((START)) --> A[ajan A]
+    A -- handoff --> B[ajan B]
+    B -- handoff --> C[ajan C]
+    C -- handoff --> A
+    A --> END((END))
+    B --> END
+    C --> END
+```
+
+Merkezi bir düğüm yok — her ajan sıradaki ajana kendi kararıyla devrediyor.
+
+## Görsel karşılaştırma: Supervisor vs Swarm
+
+<div class="diagram-compare" markdown="1">
+<div markdown="1">
+#### Supervisor — merkezi karar
+
+```mermaid
+flowchart TD
+    START((START)) --> supervisor{supervisor}
+    supervisor --> A[ajan A]
+    supervisor --> B[ajan B]
+    A --> supervisor
+    B --> supervisor
+    supervisor --> END((END))
+```
+
+Her karar `supervisor`'dan geçer — tek bir noktadan izlenebilir.
+</div>
+<div markdown="1">
+#### Swarm — dağıtık karar
+
+```mermaid
+flowchart LR
+    START((START)) --> A[ajan A]
+    A -- handoff --> B[ajan B]
+    B --> END((END))
+    A --> END
+```
+
+Merkezi bir düğüm yok — karar her ajanın kendi içinde dağıtık.
+</div>
+</div>
 
 | | Supervisor | Swarm |
 |---|---|---|
