@@ -4,7 +4,7 @@
 
 ## Gereksinimler
 
-- Python 3.9 veya üstü (3.11+ önerilir)
+- Python 3.10 veya üstü (LangGraph v1 itibarıyla Python 3.9 desteği kaldırıldı; 3.11+ önerilir)
 - Bir LLM sağlayıcı API anahtarı (OpenAI, Anthropic, vb.) — isteğe bağlı, yerel modellerle de çalışabilirsiniz
 
 ## Paket kurulumu

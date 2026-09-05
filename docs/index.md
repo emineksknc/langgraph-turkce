@@ -2,8 +2,13 @@
 
 Bu site, [LangGraph](https://github.com/langchain-ai/langgraph) kütüphanesini **sıfırdan senior seviyeye** kadar öğrenmek isteyenler için hazırlanmış, Türkçe kapsamlı bir kaynaktır.
 
+> **Özetle:** LangGraph, stateful ve döngüsel LLM/agent workflow'larını açıkça tanımlamak, kontrol etmek ve production'da sürdürülebilir şekilde çalıştırmak için kullanılan bir graph orchestration framework'üdür.
+
 !!! info "Neden bu site?"
     LangGraph'ın resmi dokümantasyonu İngilizce ve düzenli olarak değişiyor. Bu site; kavramları Türkçe, örneklerle ve kademeli bir öğrenme sırasıyla (başlangıç → orta → ileri) anlatmayı hedefliyor. Bağımsız bir öğretim kaynağıdır, LangChain Inc. ile bağlantılı değildir.
+
+!!! warning "Sürüm notu"
+    Bu rehber **LangGraph v1.x** (stabil çekirdek API) esas alınarak hazırlanmıştır. LangGraph hâlâ hızlı geliştiği için bazı fonksiyon/paket isimleri zamanla değişebilir — örneğin `MemorySaver` artık `InMemorySaver`, `create_react_agent` deprecated edilip yerine `create_agent` önerildi. Böyle bir değişikliği fark edersen sayfada not düşülmüş olabilir; yine de kod çalıştırmadan önce [resmi dokümantasyonu](kaynaklar.md) kontrol etmen iyi bir alışkanlıktır.
 
 !!! abstract "Yeni bir terimle mi karşılaştın?"
     Her terim ilk geçtiği sayfada kısaca (ve orijinal İngilizce karşılığıyla) açıklanıyor. Hepsinin toplu, aranabilir listesi için: [Sözlük](sozluk.md).
@@ -44,12 +49,15 @@ Yan menü **konu bazlı** düzenlendi (referans olarak kullanması kolay olsun d
 12. 🟡 [Config & Context Injection](orta-seviye/context-config.md)
 13. 🟡 [Test Yazma](orta-seviye/testing.md)
 14. 🔴 [Command & Send API](ileri-seviye/send-command.md)
-15. 🔴 [Multi-Agent Mimarileri](ileri-seviye/multi-agent.md)
-16. 🔴 [Time Travel & Debugging](ileri-seviye/time-travel.md)
-17. 🔴 [Production & Deployment](ileri-seviye/production.md)
-18. 🔴 [langgraph.json & CLI](ileri-seviye/deployment-cli.md)
-19. 🔴 [Proje Yapısı](ileri-seviye/proje-yapisi.md)
-20. 🔴 [Örnek Proje — Müşteri Destek Botu](ornek-proje/musteri-destek-botu.md) — tüm konuları tek projede birleştirir
+15. 🔴 [State Tasarımı](ileri-seviye/state-tasarimi.md)
+16. 🔴 [Multi-Agent Mimarileri](ileri-seviye/multi-agent.md)
+17. 🔴 [Time Travel & Debugging](ileri-seviye/time-travel.md)
+18. 🔴 [Production & Deployment](ileri-seviye/production.md)
+19. 🔴 [Ajan Değerlendirme](ileri-seviye/degerlendirme.md)
+20. 🔴 [Ajan Güvenliği](ileri-seviye/guvenlik.md)
+21. 🔴 [langgraph.json & CLI](ileri-seviye/deployment-cli.md)
+22. 🔴 [Proje Yapısı](ileri-seviye/proje-yapisi.md)
+23. 🔴 [Örnek Proje — Müşteri Destek Botu](ornek-proje/musteri-destek-botu.md) — tüm konuları tek projede birleştirir
 
 !!! tip "Öğrendiklerini test et"
     Her seviye için açılır-kapanır soru-cevap setleri hazırlandı — kendi kendine test edebilirsin: [Başlangıç](alistirmalar/baslangic-sorulari.md) · [Orta Seviye](alistirmalar/orta-seviye-sorulari.md) · [İleri Seviye](alistirmalar/ileri-seviye-sorulari.md)

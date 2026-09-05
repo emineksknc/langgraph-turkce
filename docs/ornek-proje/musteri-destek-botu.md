@@ -148,10 +148,10 @@ Deployment seçenekleri (kendi sarmalayıcı vs. LangGraph Platform) için: [Pro
 ## 8. Test etme
 
 ```python
-from langgraph.checkpoint.memory import MemorySaver
+from langgraph.checkpoint.memory import InMemorySaver
 
 def test_kucuk_tutar_otomatik_geciyor():
-    test_app = builder.compile(checkpointer=MemorySaver())
+    test_app = builder.compile(checkpointer=InMemorySaver())
     config = {"configurable": {"thread_id": "test-1", "kullanici_id": "test-user"}}
     sonuc = test_app.invoke(
         {"messages": [("user", "iade istiyorum")], "iade_tutari": 100}, config
@@ -159,7 +159,7 @@ def test_kucuk_tutar_otomatik_geciyor():
     assert "işleme alındı" in sonuc["messages"][-1].content
 
 def test_buyuk_tutar_durur():
-    test_app = builder.compile(checkpointer=MemorySaver())
+    test_app = builder.compile(checkpointer=InMemorySaver())
     config = {"configurable": {"thread_id": "test-2", "kullanici_id": "test-user"}}
     sonuc = test_app.invoke(
         {"messages": [("user", "iade istiyorum")], "iade_tutari": 5000}, config

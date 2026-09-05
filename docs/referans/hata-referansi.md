@@ -22,7 +22,7 @@ GraphRecursionError: Recursion limit of 25 reached without hitting a stop condit
 ValueError: Cannot use interrupts without a checkpointer.
 ```
 
-**Çözüm:** `compile()` çağrısına bir checkpointer verin — geliştirme için `MemorySaver()`, production için Postgres/Redis (bkz. [Checkpointer & Kalıcılık](../orta-seviye/checkpointer.md)).
+**Çözüm:** `compile()` çağrısına bir checkpointer verin — geliştirme için `InMemorySaver()`, production için Postgres/Redis (bkz. [Checkpointer & Kalıcılık](../orta-seviye/checkpointer.md)).
 
 ## INVALID_CONCURRENT_GRAPH_UPDATE
 

@@ -40,7 +40,7 @@ def test_chatbot_node_cevap_uretiyor():
 
 ```python
 def test_grafin_tamami_dogru_akista_calisiyor():
-    app = graph.compile(checkpointer=MemorySaver())
+    app = graph.compile(checkpointer=InMemorySaver())
     config = {"configurable": {"thread_id": "test-1"}}
 
     sonuc = app.invoke({"messages": [("user", "500 TL öde")]}, config)
@@ -49,7 +49,7 @@ def test_grafin_tamami_dogru_akista_calisiyor():
     assert sonuc["messages"][-1].content is not None
 ```
 
-`MemorySaver` testlerde idealdir — her test fonksiyonunda temiz bir state ile başlarsınız, dış bir veritabanına ihtiyaç duymazsınız.
+`InMemorySaver` testlerde idealdir — her test fonksiyonunda temiz bir state ile başlarsınız, dış bir veritabanına ihtiyaç duymazsınız.
 
 ## Katman 4 — Kalite/regresyon testleri (LLM-as-judge)
 

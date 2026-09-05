@@ -12,7 +12,7 @@ Graph API, akışı **açıkça bir graf olarak** (node'lar + kenarlar) tanımla
 
 ```python
 from langgraph.func import entrypoint, task
-from langgraph.checkpoint.memory import MemorySaver
+from langgraph.checkpoint.memory import InMemorySaver
 
 @task
 def ozetle(metin: str) -> str:
@@ -22,7 +22,7 @@ def ozetle(metin: str) -> str:
 def cevir(metin: str, dil: str) -> str:
     return llm.invoke(f"{dil} diline çevir: {metin}").content
 
-@entrypoint(checkpointer=MemorySaver())
+@entrypoint(checkpointer=InMemorySaver())
 def akis(girdi: dict) -> str:
     ozet = ozetle(girdi["metin"]).result()
     ceviri = cevir(ozet, girdi["dil"]).result()

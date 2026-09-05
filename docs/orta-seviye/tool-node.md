@@ -41,19 +41,26 @@ flowchart LR
 
 `chatbot` ile `tools` arasındaki döngü, model gerektiği kadar araç çağırana kadar devam eder.
 
-## create_react_agent — tek satırda ajan
+## Hazır ajan — tek satırda kurulum
 
-**ReAct** (*Reason + Act* — "akıl yürüt ve eyle"), "düşün → araç çağır → sonucu değerlendir → gerekirse tekrar düşün" döngüsüne dayanan klasik ajan desenidir. Küçük/orta ölçekli görevler için grafı elle kurmanıza gerek yok — `create_react_agent` bu deseni hazır sağlar:
+**ReAct** (*Reason + Act* — "akıl yürüt ve eyle"), "düşün → araç çağır → sonucu değerlendir → gerekirse tekrar düşün" döngüsüne dayanan klasik ajan desenidir. Küçük/orta ölçekli görevler için grafı elle kurmanıza gerek yok — hazır bir fonksiyon bu deseni size sağlar:
+
+!!! warning "create_react_agent deprecated edildi"
+    LangGraph 1.0 öncesinde bu iş için `langgraph.prebuilt.create_react_agent` kullanılıyordu. **LangGraph v1 itibarıyla bu fonksiyon deprecated edildi** — yerine LangChain'in `create_agent` fonksiyonu öneriliyor (LangGraph runtime'ı üzerinde çalışır, middleware sistemiyle daha esnek). Eski kod tabanlarında/tutoriallerde hâlâ `create_react_agent` görebilirsiniz; yeni yazdığınız kodda aşağıdaki güncel yaklaşımı tercih edin.
 
 ```python
-from langgraph.prebuilt import create_react_agent
+from langchain.agents import create_agent
 
-agent = create_react_agent(llm, tools=[hava_durumu])
+agent = create_agent(
+    model=llm,
+    tools=[hava_durumu],
+    system_prompt="Sen yardımsever bir asistansın.",
+)
 agent.invoke({"messages": [("user", "İstanbul'da hava nasıl?")]})
 ```
 
 !!! note "Ne zaman elle graf kurmalı?"
-    `create_react_agent`, standart "düşün → araç çağır → cevapla" döngüsü için idealdir. Özel bir akış (birden fazla ajan, insan onayı, koşullu dallanma) gerekiyorsa, StateGraph'ı elle kurmak size çok daha fazla kontrol verir — bkz. [Multi-Agent Mimarileri](../ileri-seviye/multi-agent.md).
+    `create_agent` (eski adıyla `create_react_agent`), standart "düşün → araç çağır → cevapla" döngüsü için idealdir. Özel bir akış (birden fazla ajan, insan onayı, koşullu dallanma) gerekiyorsa, StateGraph'ı elle kurmak size çok daha fazla kontrol verir — bkz. [Multi-Agent Mimarileri](../ileri-seviye/multi-agent.md).
 
 ## Birden fazla araç
 

@@ -40,7 +40,10 @@ graph.add_node("birlestir", birlestir_node)
 graph.add_edge("ozetle", "birlestir")
 ```
 
-Her `Send("ozetle", {...})`, `ozetle` node'unun **ayrı bir kopyasını, kendi state'iyle** paralel çalıştırır. Tüm dallar bittiğinde sonuçlar `birlestir` node'unda toplanır (state'teki liste alanı bir reducer ile otomatik birleştirilir).
+Her `Send("ozetle", {...})`, `ozetle` node'unun **ayrı bir kopyasını, kendi state'iyle** çalıştırır. Tüm dallar bittiğinde sonuçlar `birlestir` node'unda toplanır (state'teki liste alanı bir reducer ile otomatik birleştirilir).
+
+!!! note "\"Paralel\" ifadesi hakkında"
+    Buradaki "paralel" kelimesi, gerçek Python thread/process paralelliği anlamına gelmez. `Send` çalışma zamanında birden fazla bağımsız fan-out dalı oluşturur; LangGraph bu dalları kendi graf yürütme modelinin (Pregel) bir parçası olarak, adım adım (super-step) işler. Yani kavramsal olarak "aynı anda birden fazla iş" hissi verir, ama işletim sistemi seviyesinde thread paralelliğiyle karıştırılmamalıdır.
 
 ### Görsel: map-reduce akışı
 
@@ -61,4 +64,4 @@ flowchart LR
 
 ---
 
-Sıradaki adım: [Multi-Agent Mimarileri](multi-agent.md).
+Sıradaki adım: [State Tasarımı](state-tasarimi.md) — grafını kurmadan önce state'ini nasıl tasarlaman gerektiğini gör.

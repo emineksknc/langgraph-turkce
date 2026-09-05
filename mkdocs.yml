@@ -46,10 +46,6 @@ markdown_extensions:
       alternate_style: true
   - pymdownx.highlight:
       anchor_linenums: true
-
-  - pymdownx.emoji:
-      emoji_index: !!python/name:materialx.emoji.twemoji
-      emoji_generator: !!python/name:materialx.emoji.to_svg
   - pymdownx.inlinehilite
   - pymdownx.snippets
   - attr_list
@@ -87,10 +83,13 @@ nav:
       - Test Yazma: orta-seviye/testing.md
   - Mimari Desenler:
       - Command & Send API: ileri-seviye/send-command.md
+      - State Tasarımı: ileri-seviye/state-tasarimi.md
       - Multi-Agent Mimarileri: ileri-seviye/multi-agent.md
       - Time Travel & Debugging: ileri-seviye/time-travel.md
   - Production:
       - Production & Deployment: ileri-seviye/production.md
+      - Ajan Değerlendirme: ileri-seviye/degerlendirme.md
+      - Ajan Güvenliği: ileri-seviye/guvenlik.md
       - langgraph.json & CLI: ileri-seviye/deployment-cli.md
       - Proje Yapısı: ileri-seviye/proje-yapisi.md
   - Örnek Proje:

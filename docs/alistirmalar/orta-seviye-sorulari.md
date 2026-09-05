@@ -10,8 +10,8 @@ Bu sorular [Çalışma Zamanı](../orta-seviye/tool-node.md) bölümündeki konu
 ??? question "2. `create_react_agent` yerine ne zaman StateGraph'ı elle kurmalısınız?"
     `create_react_agent`, standart "düşün → araç çağır → cevapla" döngüsü için idealdir ve hızlıdır. Ama özel bir akış gerekiyorsa — birden fazla ajan arasında yönlendirme, insan onayı bekleyen adımlar, koşullu dallanma, paralel işleme gibi — StateGraph'ı elle kurmak çok daha fazla kontrol sağlar. Kısacası: standart görev → hazır fonksiyon; özel/karmaşık akış → elle graf.
 
-??? question "3. `MemorySaver` ile `PostgresSaver` arasındaki temel fark nedir, hangisi ne zaman kullanılır?"
-    `MemorySaver` state'i sadece process belleğinde tutar — süreç yeniden başladığında (deploy, crash, restart) tüm veri kaybolur; sadece **geliştirme/test** için uygundur. `PostgresSaver` (veya `SqliteSaver`) state'i kalıcı bir veritabanına yazar; **production**'da kullanılması gereken seçenektir çünkü süreç yeniden başlasa bile konuşma geçmişi korunur.
+??? question "3. `InMemorySaver` ile `PostgresSaver` arasındaki temel fark nedir, hangisi ne zaman kullanılır?"
+    `InMemorySaver` state'i sadece process belleğinde tutar — süreç yeniden başladığında (deploy, crash, restart) tüm veri kaybolur; sadece **geliştirme/test** için uygundur. `PostgresSaver` (veya `SqliteSaver`) state'i kalıcı bir veritabanına yazar; **production**'da kullanılması gereken seçenektir çünkü süreç yeniden başlasa bile konuşma geçmişi korunur.
 
 ??? question "4. `thread_id` neyi belirler, farklı kullanıcılar için nasıl kullanılmalı?"
     `thread_id`, checkpointer'ın hangi konuşmaya ait state'i okuyup yazacağını belirler. Her kullanıcı/konuşma için **farklı** bir `thread_id` kullanılmalı (ör. `f"kullanici-{user_id}"` veya bir session UUID'si) — aynı `thread_id`'yi paylaşan iki farklı kullanıcı, birbirinin konuşma geçmişini görür/karıştırır.

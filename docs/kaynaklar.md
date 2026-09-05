@@ -29,8 +29,11 @@ Bu sayfa, rehberdeki her ana konunun **resmi LangGraph dokümantasyonundaki** ka
 
 | Bu rehberde | Resmi kaynak |
 |---|---|
+| [State Tasarımı](ileri-seviye/state-tasarimi.md) | Resmi dokümanda ayrı bir sayfa yok — [Graph API overview](https://docs.langchain.com/oss/python/langgraph/graph-api) içindeki state bölümüne dayanır, gerisi bu rehberin kendi pratik önerileridir |
 | [Time Travel & Debugging](ileri-seviye/time-travel.md) | [Use time-travel](https://docs.langchain.com/oss/python/langgraph/use-time-travel) |
 | [Production & Deployment](ileri-seviye/production.md) | [Deployment](https://docs.langchain.com/oss/python/langgraph/deploy), [Fault-tolerance](https://docs.langchain.com/oss/python/langgraph/fault-tolerance) |
+| [Ajan Değerlendirme](ileri-seviye/degerlendirme.md) | Resmi LangGraph dokümanında ayrı bir sayfa yok — LangSmith/Langfuse'un evaluation özellikleriyle ilişkilidir (ayrı rehber planlanıyor) |
+| [Ajan Güvenliği](ileri-seviye/guvenlik.md) | Resmi LangGraph dokümanında ayrı bir sayfa yok — genel LLM/agent güvenlik pratiklerine (OWASP LLM Top 10 gibi kaynaklara) dayanır |
 | [langgraph.json & CLI](ileri-seviye/deployment-cli.md) | [Run a local server](https://docs.langchain.com/oss/python/langgraph/local-server), [LangSmith Studio](https://docs.langchain.com/oss/python/langgraph/studio) |
 | [Proje Yapısı](ileri-seviye/proje-yapisi.md) | [Application structure](https://docs.langchain.com/oss/python/langgraph/application-structure) |
 | [Hata Referansı](referans/hata-referansi.md) | Resmi hata sayfaları (`docs.langchain.com/oss/python/langgraph/graph-recursion-limit` ve benzerleri) |

@@ -10,8 +10,8 @@
 | `add_messages` | Mesaj listesi reducer'ı | `langgraph.graph.message` |
 | `ToolNode` | Hazır araç çalıştırıcı node | `langgraph.prebuilt` |
 | `tools_condition` | Hazır araç-çağırma karar fonksiyonu | `langgraph.prebuilt` |
-| `create_react_agent` | Hazır ReAct ajanı | `langgraph.prebuilt` |
-| `MemorySaver` | Bellek içi checkpointer (sadece dev) | `langgraph.checkpoint.memory` |
+| `create_agent` | Hazır ajan (eski adıyla `create_react_agent`, deprecated) | `langchain.agents` |
+| `InMemorySaver` | Bellek içi checkpointer (sadece dev) | `langgraph.checkpoint.memory` |
 | `PostgresSaver` / `SqliteSaver` | Kalıcı checkpointer | `langgraph.checkpoint.*` |
 | `InMemoryStore` | Uzun süreli hafıza (dev) | `langgraph.store.memory` |
 | `Command` | Yönlendirme + state güncelleme | `langgraph.types` |
@@ -32,7 +32,7 @@
 !!! failure "recursion_limit koymamak"
     Döngü içeren graflarda üst sınır koymazsanız, mantık hatası durumunda sonsuz döngüye girip maliyeti patlatabilirsiniz.
 
-!!! failure "MemorySaver'ı production'a taşımak"
+!!! failure "InMemorySaver'ı production'a taşımak"
     Süreç yeniden başladığında (deploy, crash, ölçekleme) tüm konuşma geçmişi kaybolur — kalıcı bir backend'e (Postgres/Redis) geçin.
 
 ---

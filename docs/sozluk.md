@@ -80,7 +80,7 @@ Bu sayfada rehber boyunca geçen terimler, orijinal İngilizce karşılıklarıy
 : LangGraph'ın hazır sunduğu, araç çağrılarını otomatik çalıştıran node. Elle yazmaya gerek bırakmaz.
 
 **ReAct (Reason + Act — "akıl yürüt ve eyle")**
-: "Düşün → araç çağır → sonucu değerlendir → gerekirse tekrar düşün" döngüsüne dayanan klasik ajan deseni. `create_react_agent` bu deseni hazır sağlar.
+: "Düşün → araç çağır → sonucu değerlendir → gerekirse tekrar düşün" döngüsüne dayanan klasik ajan deseni. Bu deseni hazır sağlayan fonksiyon önceden `create_react_agent` idi; LangGraph v1 itibarıyla bu deprecated edildi, yerine `langchain.agents.create_agent` kullanılıyor.
 
 **Agent (ajan)**
 : Bir görevi tamamlamak için kendi kendine karar verip araç çağırabilen LLM tabanlı sistem.
@@ -152,6 +152,29 @@ Bu sayfada rehber boyunca geçen terimler, orijinal İngilizce karşılıklarıy
 
 **Regression test (regresyon testi)**
 : Yapılan bir değişikliğin, daha önce doğru çalışan bir davranışı bozup bozmadığını kontrol eden test.
+
+**Offline evaluation (çevrimdışı değerlendirme)**
+: Sabit bir soru-cevap seti (dataset) üzerinde, deploy öncesi yapılan otomatik kalite testi.
+
+**Online evaluation (çevrimiçi değerlendirme)**
+: Gerçek production trafiğinin bir örneklemi üzerinde, sürekli olarak yapılan kalite izlemesi.
+
+**Faithfulness (bağlılık)**
+: Özellikle RAG sistemlerinde, üretilen cevabın verilen kaynağa/bağlama ne kadar sadık kaldığının ölçüsü — düşük faithfulness, halüsinasyona işaret eder.
+
+## Production Güvenliği
+
+**Idempotency (aynı işlemi güvenle tekrarlama)**
+: Bir işlemin (ör. ödeme alma, e-posta gönderme) birden fazla kez çalıştırılsa bile aynı sonucu üretmesi ve yan etkiyi tekrarlamaması özelliği. Bkz. [Production & Deployment](ileri-seviye/production.md) sayfasındaki Timeout & Idempotency bölümü.
+
+**Prompt injection (istem enjeksiyonu)**
+: Bir kullanıcının veya harici bir içeriğin, modelin sistem talimatlarını geçersiz kılacak metin göndererek modelin davranışını manipüle etmesi.
+
+**Least privilege (en az yetki ilkesi)**
+: Bir bileşenin (burada: bir aracın), işini yapmak için gerekenden fazla yetkiye sahip olmaması gerektiği güvenlik ilkesi.
+
+**Sandboxing (izole çalıştırma)**
+: Özellikle kod çalıştıran ajanlarda, üretilen kodun ana sistemden izole, sınırlı yetkili bir ortamda çalıştırılması.
 
 ---
 

@@ -8,12 +8,15 @@
 - Aynı "thread" (konuşma) için geçmişi hatırlarsınız
 - [Human-in-the-loop](human-in-the-loop.md) ve [time-travel](../ileri-seviye/time-travel.md) mümkün olur
 
-## Geliştirme: MemorySaver
+## Geliştirme: InMemorySaver
+
+!!! note "İsim notu"
+    Bu sınıf eskiden `MemorySaver` olarak biliniyordu; güncel LangGraph sürümlerinde adı `InMemorySaver` — internette hâlâ eski isimle yazılmış kod/tutorial görebilirsin, işlevi aynı.
 
 ```python
-from langgraph.checkpoint.memory import MemorySaver
+from langgraph.checkpoint.memory import InMemorySaver
 
-app = graph.compile(checkpointer=MemorySaver())
+app = graph.compile(checkpointer=InMemorySaver())
 
 config = {"configurable": {"thread_id": "kullanici-42"}}
 app.invoke({"messages": [("user", "merhaba")]}, config)
@@ -22,8 +25,8 @@ app.invoke({"messages": [("user", "adımı hatırlıyor musun?")]}, config)
 
 `thread_id`, hangi konuşmaya ait olduğunu belirtir — aynı `thread_id` ile yapılan her `invoke` çağrısı, önceki state'in üzerine devam eder. **Thread** (burada "iş parçacığı" değil, "tek bir konuşma dizisi" anlamındadır) kavramı, farklı kullanıcıların/oturumların birbirine karışmadan ayrı state tutmasını sağlar.
 
-!!! danger "MemorySaver sadece geliştirme içindir"
-    `MemorySaver`, state'i sadece bellekte tutar — süreç yeniden başladığında **tüm veri kaybolur**. Production'da mutlaka kalıcı bir backend kullanın.
+!!! danger "InMemorySaver sadece geliştirme içindir"
+    `InMemorySaver`, state'i sadece bellekte tutar — süreç yeniden başladığında **tüm veri kaybolur**. Production'da mutlaka kalıcı bir backend kullanın.
 
 ## Production: Postgres / SQLite
 
@@ -62,7 +65,7 @@ app.invoke({"messages": [("user", "adımı hatırlıyor musun?")]}, config)
 
 ```mermaid
 flowchart TD
-    baslangic{Sadece geliştirme/test mi?} -- evet --> memory[MemorySaver]
+    baslangic{Sadece geliştirme/test mi?} -- evet --> memory[InMemorySaver]
     baslangic -- hayır, production --> trafik{Trafik çok mu yüksek?}
     trafik -- evet, düşük gecikme öncelikli --> redis[Redis]
     trafik -- hayır --> deploy{Basit tek-dosya deploy mi?}
