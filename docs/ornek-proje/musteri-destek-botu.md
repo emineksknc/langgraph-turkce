@@ -19,7 +19,7 @@ flowchart TD
 ```
 
 - **router**: gelen mesajın genel bir soru mu yoksa iade talebi mi olduğuna karar verir ([Command & Send API](../ileri-seviye/send-command.md))
-- **iade_kontrol**: tutara göre otomatik mi geçecek yoksa onaya mı düşecek karar verir ([NodeInterrupt](../orta-seviye/human-in-the-loop.md))
+- **iade_kontrol**: tutara göre otomatik mi geçecek yoksa onaya mı düşecek karar verir (koşullu [interrupt()](../orta-seviye/human-in-the-loop.md))
 - **checkpointer**: her kullanıcının konuşma geçmişini ayrı `thread_id` ile saklar ([Checkpointer](../orta-seviye/checkpointer.md))
 
 ## 1. State ve bağımlılıklar
@@ -28,8 +28,7 @@ flowchart TD
 from typing import TypedDict, Annotated, Literal
 from langgraph.graph.message import add_messages
 from langgraph.graph import StateGraph, START, END
-from langgraph.types import Command
-from langgraph.errors import NodeInterrupt
+from langgraph.types import Command, interrupt
 from langgraph.checkpoint.postgres import PostgresSaver
 from langchain_core.runnables import RunnableConfig
 from langchain_openai import ChatOpenAI
@@ -55,13 +54,18 @@ def router(state: State) -> Command[Literal["chatbot", "iade_kontrol"]]:
     return Command(goto=hedef)
 ```
 
+!!! note "Basitleştirme notu"
+    Bu örnekte yönlendirme kararı, modelin serbest metin cevabında `"iade"` kelimesini aramakla belirleniyor — öğretici olması için basit tutuldu. Production'da bunun yerine [`with_structured_output`](https://python.langchain.com/docs/how_to/structured_output/) ile modelden `Literal["iade", "genel"]` gibi tipli, garanti bir çıktı almak çok daha sağlamdır — serbest metin eşleştirme, modelin beklenmeyen bir kelime seçmesi durumunda kırılabilir.
+
 ## 3. İade kontrolü — koşullu human-in-the-loop
 
 ```python
 def iade_kontrol(state: State):
     tutar = state.get("iade_tutari", 0)
     if tutar > ONAY_ESIGI:
-        raise NodeInterrupt(f"{tutar} TL, {ONAY_ESIGI} TL onay eşiğini aşıyor — insan onayı gerekli")
+        onay = interrupt(f"{tutar} TL, {ONAY_ESIGI} TL onay eşiğini aşıyor — onaylıyor musunuz?")
+        if onay != "evet":
+            return {"messages": [("assistant", "İade talebiniz onaylanmadı.")]}
     return {}
 
 def iade_isle(state: State):
@@ -69,7 +73,7 @@ def iade_isle(state: State):
     return {"messages": [("assistant", f"{tutar} TL iadeniz işleme alındı.")]}
 ```
 
-`iade_tutari` küçükse `iade_kontrol` sessizce geçer; büyükse `NodeInterrupt` fırlatır ve graf orada durur — bkz. [NodeInterrupt detayları](../orta-seviye/human-in-the-loop.md).
+`iade_tutari` küçükse `iade_kontrol` sessizce geçer; büyükse `interrupt()` çağrılır ve graf orada durur — bkz. [interrupt() detayları](../orta-seviye/human-in-the-loop.md).
 
 ## 4. Genel sohbet node'u — config'ten kullanıcı bilgisi okuma
 
@@ -106,6 +110,9 @@ with PostgresSaver.from_conn_string(DB_URI) as checkpointer:
 
 ## 6. Çalıştırma
 
+!!! note "Basitleştirme notu"
+    Bu örnekte `iade_tutari`, çağrının kendisinde doğrudan veriliyor. Gerçek bir sistemde bu değer genelde kullanıcının mesajından (ör. "500 TL'lik ürünü iade etmek istiyorum") modele **structured output** ile çıkartılır veya bir sipariş numarasından veritabanından sorgulanır — bu çıkarım adımı, örneği basit tutmak için kapsam dışı bırakılmıştır.
+
 ```python
 config = {"configurable": {"thread_id": "sohbet-42", "kullanici_id": "u-123"}}
 
@@ -115,10 +122,10 @@ app.invoke({"messages": [("user", "Kargom ne zaman gelir?")]}, config)
 # Küçük tutarlı iade — otomatik işlenir
 app.invoke({"messages": [("user", "İade istiyorum")], "iade_tutari": 150}, config)
 
-# Büyük tutarlı iade — NodeInterrupt ile durur
+# Büyük tutarlı iade — interrupt() ile durur
 app.invoke({"messages": [("user", "İade istiyorum")], "iade_tutari": 2000}, config)
 # ... operatör onayı sonrası ...
-app.invoke(None, config)  # kaldığı yerden devam
+app.invoke(Command(resume="evet"), config)  # kaldığı yerden devam
 ```
 
 ## 7. FastAPI'ye sarma

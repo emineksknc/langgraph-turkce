@@ -114,7 +114,7 @@ Bu sayfada rehber boyunca geçen terimler, orijinal İngilizce karşılıklarıy
 : Grafın belirli bir noktada çalışmayı durdurup insan girdisi beklemesi.
 
 **NodeInterrupt**
-: `interrupt()`'tan farklı olarak, bir düğümün içinden **koşullu olarak** fırlatılan, veri bazlı durma istisnası (ör. "tutar eşiği aşıldıysa dur").
+: `interrupt()`'tan önce koşullu durma için kullanılan eski mekanizma. **v1.0 itibarıyla deprecated edildi, v2.0'da kaldırılacak** — yerine `interrupt()`'ı bir `if` koşulunun içinde çağırmak öneriliyor. Bkz. [Human-in-the-loop](orta-seviye/human-in-the-loop.md).
 
 **Time-travel (zamanda geri gitme)**
 : Grafın geçmiş bir state'ine dönüp oradan farklı bir dal deneme yeteneği.
@@ -122,13 +122,22 @@ Bu sayfada rehber boyunca geçen terimler, orijinal İngilizce karşılıklarıy
 ## Yapılandırma & Üretim
 
 **Config injection (yapılandırma enjeksiyonu)**
-: Bir düğüme, state'in parçası olmayan ama çağrıya özel bilgiyi (kullanıcı kimliği, model seçimi gibi) `RunnableConfig` üzerinden geçirme yöntemi.
+: Bir düğüme, state'in parçası olmayan ama çağrıya özel bilgiyi (kullanıcı kimliği, model seçimi gibi) geçirme yöntemi. Geleneksel yol `RunnableConfig`/`config["configurable"]`'dır; LangGraph 0.6+ ile `context`/`Runtime` adında daha yeni, tipli bir alternatif de eklendi (`thread_id` gibi checkpointer'a özel alanlar hâlâ `config["configurable"]` üzerinden gider).
 
 **RunnableConfig**
-: LangChain/LangGraph'ta çalışma zamanı parametrelerini taşıyan standart yapılandırma nesnesi.
+: LangChain/LangGraph'ta çalışma zamanı parametrelerini taşıyan, `config["configurable"]` ile erişilen klasik yapılandırma nesnesi — hâlâ desteklenir, `thread_id` gibi sistem alanları için gereklidir.
 
 **Retry policy (yeniden deneme politikası)**
-: Bir düğümün, geçici hatalarda (ağ, rate limit) otomatik olarak kaç kez yeniden deneneceğini belirleyen kural.
+: Bir düğümün, geçici hatalarda (ağ, rate limit) otomatik olarak kaç kez yeniden deneneceğini belirleyen kural. LangGraph'ta `langgraph.types.RetryPolicy` sınıfı ve `add_node(..., retry_policy=...)` parametresiyle tanımlanır.
+
+**TimeoutPolicy**
+: Bir node'un tek bir denemesinin en fazla ne kadar sürebileceğini sınırlayan, `add_node(..., timeout=...)` ile kullanılan politika. Sadece async node'larda çalışır (LangGraph 1.2+).
+
+**error_handler**
+: Bir node'un tüm retry'ları tükendikten sonra çalışan kurtarma fonksiyonu — tipli bir `NodeError` alır, `Command` döndürerek state güncelleyip farklı bir node'a yönlendirebilir (LangGraph 1.2+).
+
+**CachePolicy**
+: Bir node'un çıktısını belirli bir süre (`ttl`) önbelleğe alarak aynı girdiyle tekrar çağrıldığında yeniden çalıştırılmasını önleyen politika — sadece yan etkisiz (saf) node'lar için güvenlidir.
 
 **Recursion limit (özyineleme/döngü üst sınırı)**
 : Döngü içeren bir grafın en fazla kaç adım çalışabileceğine dair güvenlik sınırı.

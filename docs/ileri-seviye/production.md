@@ -4,27 +4,60 @@
 
 ## Durable execution (dayanıklı çalıştırma) — genel çerçeve
 
-Production'da hata yönetimi, checkpointer ve retry ayrı ayrı konular gibi görünebilir ama aslında hepsi tek bir kavramın parçasıdır: **durable execution** (dayanıklı çalıştırma) — yani bir çalıştırmanın, çökme/yeniden başlatma/geçici hata gibi kesintilere rağmen kaldığı yerden devam edebilmesi. LangGraph'ta bu üç bileşenle sağlanır:
+**Durable execution**, bir workflow'un kesinti veya hata sonrasında güvenilir biçimde kaldığı yerden devam edebilmesini sağlayan çalışma modelidir. Bu, tek bir mekanizma değil, birkaç mekanizmanın **birlikte** oluşturduğu bir özelliktir:
 
 1. **[Checkpointer](../orta-seviye/checkpointer.md)** — her adımdan sonra state'i kalıcı olarak kaydeder
 2. **Retry policy** (aşağıda) — geçici hatalarda otomatik yeniden dener
-3. **[Human-in-the-loop](../orta-seviye/human-in-the-loop.md)** — beklenen "duraklamaları" (insan onayı) yönetir
+3. **Idempotent side effect'ler** (aşağıda) — bir işlem tekrarlansa bile aynı sonucu üretir
+4. **[Human-in-the-loop](../orta-seviye/human-in-the-loop.md)** — beklenen "duraklamaları" (insan onayı) yönetir
 
-Bu üçü birlikte düşünüldüğünde, "production'a hazır mıyım?" sorusu aslında "çalıştırmam gerçekten dayanıklı mı?" sorusuna dönüşür.
+!!! note "Retry tek başına durable execution değildir"
+    Bu dördü **birlikte** dayanıklılığı oluşturur — sadece retry eklemek yeterli değildir. Örneğin checkpointer olmadan retry, kaldığınız yerden değil baştan başlar; idempotency olmadan retry, bir ödeme işlemini iki kez tetikleyebilir (bkz. aşağıdaki Idempotency bölümü).
+
+Bu dört bileşen birlikte düşünüldüğünde, "production'a hazır mıyım?" sorusu aslında "çalıştırmam gerçekten dayanıklı mı?" sorusuna dönüşür.
 
 ## Hata yönetimi ve retry
 
 Harici API çağıran node'larda geçici hataları (rate limit, network) tolere etmek için node bazlı **retry policy** (yeniden deneme politikası) tanımlayın:
 
 ```python
-from langgraph.pregel import RetryPolicy
+from langgraph.types import RetryPolicy
 
 graph.add_node(
     "arac_cagir",
     arac_node,
-    retry=RetryPolicy(max_attempts=3, backoff_factor=2),
+    retry_policy=RetryPolicy(max_attempts=3),
 )
 ```
+
+!!! note "max_attempts ne anlama gelir?"
+    `max_attempts=3`, **ilk deneme dahil toplam 3 deneme** demektir (1. deneme başarısız → 2. deneme başarısız → 3. deneme). "3 kez daha dene" değildir. Varsayılan olarak `RetryPolicy`, `ValueError`, `TypeError` gibi programlama hatları hariç çoğu exception'da devreye girer.
+
+## error_handler — retry'lar tükendikten sonra kurtarma
+
+!!! info "langgraph>=1.2 gerektirir"
+    Bu özellik LangGraph 1.2 ve üzeri sürümlerde mevcuttur.
+
+Retry'lar tükendiğinde node hâlâ başarısızsa, LangGraph bir **kurtarma fonksiyonu** çalıştırmanıza izin verir — özellikle "ödeme başarısız oldu, stoktan düşürdüğüm ürünü geri ekle" gibi telafi (Saga/compensation) senaryolarında değerlidir:
+
+```python
+from langgraph.errors import NodeError
+from langgraph.types import Command
+
+def odeme_kurtarma(state: State, error: NodeError) -> Command:
+    return Command(update={
+        "durum": f"'{error.node}' düğümü başarısız oldu, stok telafi ediliyor",
+    }, goto="stok_telafi")
+
+graph.add_node(
+    "odeme_al",
+    odeme_node,
+    retry_policy=RetryPolicy(max_attempts=3),
+    error_handler=odeme_kurtarma,
+)
+```
+
+`error_handler`, tükenen retry'lardan sonra çalışır ve tipli bir `NodeError` (`error.node`, `error.error`) alır; `Command` döndürerek hem state'i güncelleyebilir hem de farklı bir node'a yönlendirebilir.
 
 ## Recursion limit (döngü üst sınırı)
 
@@ -57,8 +90,31 @@ def harici_api_cagir(sorgu: str) -> str:
     return response.text
 ```
 
+### LangGraph'ın native node-level timeout'u
+
+!!! info "langgraph>=1.2 gerektirir, sadece async node'larda çalışır"
+    Yukarıdaki örnekler (LLM istemcisi, `requests`) **kütüphane seviyesinde** timeout'lardır — her zaman çalışır. LangGraph ayrıca `add_node`'a doğrudan `timeout=` parametresi ekleyerek **node'un tamamını** sarabilir; ama bu **yalnızca async node'larda** desteklenir (senkron bir node'a `timeout` vermek derleme anında hataya yol açar).
+
+```python
+from datetime import timedelta
+from langgraph.types import TimeoutPolicy
+
+# Basit sabit süre
+graph.add_node("model_cagir", model_cagir, timeout=60)
+graph.add_node("model_cagir", model_cagir, timeout=timedelta(minutes=2))
+
+# Ayrı "toplam süre" ve "hareketsizlik" limitleri
+graph.add_node(
+    "model_cagir",
+    model_cagir,
+    timeout=TimeoutPolicy(run_timeout=120, idle_timeout=30),
+)
+```
+
+Süre dolduğunda LangGraph `NodeTimeoutError` fırlatır, o denemenin yazımlarını temizler ve devreyi retry policy'ye devreder — yani timeout ve retry burada da birlikte çalışır.
+
 !!! tip "Timeout, RetryPolicy ile birlikte çalışır"
-    Timeout "ne kadar beklerim" sorusunu, RetryPolicy (yukarıdaki "Hata yönetimi ve retry" bölümü) "başarısız olursa kaç kez tekrar denerim" sorusunu cevaplar. İkisi birlikte kullanılır: `timeout=30, retry=RetryPolicy(max_attempts=3)` — 30 saniye bekle, olmazsa 3 kez daha dene.
+    Timeout "ne kadar beklerim" sorusunu, RetryPolicy (yukarıdaki "Hata yönetimi ve retry" bölümü) "başarısız olursa kaç kez tekrar denerim" sorusunu cevaplar. İkisi birlikte kullanılır: `timeout=30, retry_policy=RetryPolicy(max_attempts=3)` — her denemede 30 saniye bekle, toplamda 3 deneme yap.
 
 ## Idempotency (aynı işlemi güvenle tekrarlama)
 
@@ -111,6 +167,28 @@ Alternatif/tamamlayıcı olarak Langfuse `CallbackHandler` da grafın her node'u
 ## Checkpointer backend'i
 
 `InMemorySaver` sadece geliştirme içindir. Production'da Postgres veya Redis tabanlı kalıcı bir checkpointer kullanın (bkz. [Checkpointer sayfası](../orta-seviye/checkpointer.md)) — süreç yeniden başladığında tüm konuşma geçmişini kaybetmemek için şarttır.
+
+## Node-level caching (maliyet/performans optimizasyonu)
+
+Aynı girdiyle tekrar tekrar çağrılan, pahalı ya da yavaş bir node varsa (ör. aynı belgeyi tekrar özetlemek, aynı hesaplamayı tekrar yapmak), sonucu önbelleğe alabilirsiniz:
+
+```python
+from langgraph.cache.memory import InMemoryCache
+from langgraph.types import CachePolicy
+
+graph.add_node(
+    "belge_ozetle",
+    ozetle_node,
+    cache_policy=CachePolicy(ttl=120),  # saniye cinsinden — None ise süresiz
+)
+
+app = builder.compile(cache=InMemoryCache())
+```
+
+Aynı girdiyle yapılan ikinci çağrı, node'u tekrar çalıştırmak yerine önbellekten döner — hem LLM maliyetini hem de gecikmeyi düşürür. Production'da `InMemoryCache` yerine Redis tabanlı bir cache backend'i tercih edilmelidir (checkpointer'daki aynı "sadece dev" uyarısı burada da geçerlidir).
+
+!!! warning "Cache, yan etkili node'lar için uygun değildir"
+    Caching, sadece **saf** (aynı girdi → her zaman aynı çıktı, yan etkisiz) node'lar için güvenlidir. Bir ödeme işlemini ya da e-posta gönderimini önbelleğe almayın — bu, [idempotency](#idempotency-ayn-islemi-guvenle-tekrarlama) beklediğiniz davranışın tam tersi bir sonuca yol açabilir.
 
 ## Deployment seçenekleri
 

@@ -62,6 +62,20 @@ agent.invoke({"messages": [("user", "İstanbul'da hava nasıl?")]})
 !!! note "Ne zaman elle graf kurmalı?"
     `create_agent` (eski adıyla `create_react_agent`), standart "düşün → araç çağır → cevapla" döngüsü için idealdir. Özel bir akış (birden fazla ajan, insan onayı, koşullu dallanma) gerekiyorsa, StateGraph'ı elle kurmak size çok daha fazla kontrol verir — bkz. [Multi-Agent Mimarileri](../ileri-seviye/multi-agent.md).
 
+### "Madem create_agent var, neden LangGraph öğreniyorum?"
+
+Bu soru çok mantıklı — cevap, ikisinin **farklı soyutlama seviyelerinde** olmasıdır:
+
+```mermaid
+flowchart TD
+    ca["create_agent()<br/>yüksek seviye agent soyutlaması"] --> runtime["LangGraph runtime<br/>(Pregel çalışma modeli)"]
+    sg["StateGraph<br/>düşük seviye, tam kontrol"] --> runtime
+```
+
+`create_agent`, **LangGraph'ın runtime'ı üzerinde çalışan hazır bir ajan şablonudur** — checkpointer, streaming, human-in-the-loop gibi her şeyi sizin yerinize bağlar. `StateGraph` ise aynı runtime'a **doğrudan** erişim verir; özel bir akış, birden fazla ajan ya da bu rehberde gördüğünüz ileri seviye desenler (Command, Send, subgraph) gerektiğinde ihtiyacınız olan kontrol seviyesi budur.
+
+Kısacası: `create_agent` ile başlayıp yeterli gelmediğinde `StateGraph`'a geçebilirsiniz — LangGraph öğrenmek, "`create_agent` yetersiz kaldığında ne yapacağını bilmek" anlamına gelir.
+
 ## Birden fazla araç
 
 ```python

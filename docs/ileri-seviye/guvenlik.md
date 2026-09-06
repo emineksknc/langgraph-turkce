@@ -69,11 +69,13 @@ def dosya_oku(dosya_yolu: str) -> str:
 [Human-in-the-loop](../orta-seviye/human-in-the-loop.md) sadece iş akışı kontrolü değil, aynı zamanda bir güvenlik katmanıdır. Geri alınamaz ya da maliyetli eylemler için (para transferi, hesap silme, toplu e-posta) otomasyonun **tek başına** karar vermesine izin vermeyin:
 
 ```python
-from langgraph.errors import NodeInterrupt
+from langgraph.types import interrupt
 
 def kritik_islem(state: State):
     if state["islem_tipi"] in ["hesap_sil", "toplu_transfer"]:
-        raise NodeInterrupt("Bu işlem tipi her zaman insan onayı gerektirir")
+        onay = interrupt(f"'{state['islem_tipi']}' işlemi her zaman insan onayı gerektirir")
+        if onay != "evet":
+            return {"durum": "reddedildi"}
     return {"durum": "otomatik_islendi"}
 ```
 

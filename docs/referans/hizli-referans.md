@@ -17,7 +17,7 @@
 | `Command` | Yönlendirme + state güncelleme | `langgraph.types` |
 | `Send` | Dinamik paralel dağıtım (map-reduce) | `langgraph.types` |
 | `interrupt` / `interrupt_before/after` | Human-in-the-loop | `langgraph.types` / `compile()` |
-| `RetryPolicy` | Node bazlı retry | `langgraph.pregel` |
+| `RetryPolicy` | Node bazlı retry (`retry_policy=` parametresiyle) | `langgraph.types` |
 | `get_state_history` | Time-travel / debug | `app` metodu |
 | `astream_events` | Olay bazlı (retriever/tool/llm) akış | `app` metodu |
 
